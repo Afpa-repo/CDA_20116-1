@@ -1,5 +1,5 @@
 <?php
-
+// Formulaire d'inscription - User()
 namespace App\Form;
 
 use App\Entity\User;
@@ -19,7 +19,7 @@ class RegisterType extends AbstractType
         $builder
             ->add('firstName',TextType::class,[
                 'label' => 'Prénom',
-                'attr' => [
+                'attr' => [                     // Pour Mettre les options qu'on mettrait en attribut dans le formulaire HTML
                     'placeholder' => 'Camille',
                     'required' => true
                 ]

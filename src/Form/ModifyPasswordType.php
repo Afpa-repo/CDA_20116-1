@@ -1,5 +1,5 @@
 <?php
-
+// Formulaire de modification du mot de basse
 namespace App\Form;
 
 use App\Entity\User;
@@ -20,7 +20,7 @@ class ModifyPasswordType extends AbstractType
         $builder
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
-                'disabled' => true
+                'disabled' => true // Désactive la possibilité de modofier un champ
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
@@ -36,10 +36,10 @@ class ModifyPasswordType extends AbstractType
             ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'Mot de passe actuel',
-                'required' => true,
-                'mapped' => false
+                'required' => true, // Champ obligatoire
+                'mapped' => false // Spécifie l'impossibilité de mettre ce champs en relation avec User()
             ])
-            ->add('new_password', RepeatedType::class, [
+            ->add('new_password', RepeatedType::class, [ // RepeatedType pour avoir 2 champs liés, ils doivent correspondent
                 'required' => true,
                 'mapped' => false,
                 'type' => PasswordType::class,

@@ -1,4 +1,5 @@
 <!doctype html>
+{#Notre base, squelette qui est généré avec chacune de nos vues#}
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -29,7 +30,7 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"> {# CSS maison  #}
 </head>
 <body>
 <header>
@@ -44,6 +45,7 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
             </ul>
+            {# Permet d'afficher 2 paires de liens différents selon si l'utilisateur est connecté ou non #}
             <div class="nav-item-custom">
                 {% if app.user %}
                     <a href="{{ path('account') }}"> Mon compte </a> | <a href="{{ path('logout') }}"> Déconnexion </a>
@@ -111,6 +113,7 @@
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
+    {# C'est le block qu'il faut appelé dans nos vues et dans lequel on mettra le contenue de chaque page #}
     <div class="container marketing">
         {% block content %}
         {% endblock %}

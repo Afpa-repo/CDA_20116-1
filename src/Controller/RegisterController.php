@@ -1,5 +1,5 @@
 <?php
-
+// Controller associé au formulaire d'inscription
 namespace App\Controller;
 
 use App\Entity\User;
@@ -16,28 +16,28 @@ class RegisterController extends AbstractController
     private $entityManager;
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager = $entityManager; // Instanciation d'entityManagerInterface -- Pour mettre les modifications en BDD
     }
     /**
      * @Route("/inscription", name="register")
      */
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
-        $form->handleRequest($request);
+        $user = new User(); // On instancie un nouvel objet $user à partir de la classe User()
+        $form = $this->createForm(RegisterType::class, $user); // Méthode pour créer un formulaire à partir de Register>Type et pour le lier à $user
+        $form->handleRequest($request); // Mise sur écoute du formulaire
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isSubmitted() && $form->isValid()) // Si le formulaire est soumis et valide
         {
-            $password = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('login');
+            $password = $encoder->encodePassword($user, $user->getPassword()); // On encode le mot de passe stocké dans $user
+            $user->setPassword($password); // On stocke le mot de place hashé à la place de l'ancien dans $user
+            $this->entityManager->persist($user); // On persist les données, on ne fait cette opération que lors de l'ajout d'une nouvelle donnée à la BDD
+            $this->entityManager->flush();// On stock les données en BDD
+            return $this->redirectToRoute('login'); // Redirection vers la page connexion
         }
 
         return $this->render('register/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView() // On envoit la vue du formulair à twig
         ]);
     }
 }

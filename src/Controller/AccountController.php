@@ -1,5 +1,7 @@
 <?php
 
+// Controller associé à la page Mon-compte
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

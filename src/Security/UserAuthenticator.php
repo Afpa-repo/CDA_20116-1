@@ -1,5 +1,6 @@
 <?php
-
+// GuardAuthentificator, va nous permettre de faire les vérifs en BDD lors de la tentative d'authentification
+//TODO  Gérer les messages d'erreurs
 namespace App\Security;
 
 use App\Entity\User;
@@ -96,7 +97,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('account'));
+        return new RedirectResponse($this->urlGenerator->generate('account')); // Redirection si authentification réussie
     }
 
     protected function getLoginUrl()

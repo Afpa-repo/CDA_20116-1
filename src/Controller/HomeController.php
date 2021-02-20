@@ -1,5 +1,5 @@
 <?php
-
+// Controller associé à la page d'accueil
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
