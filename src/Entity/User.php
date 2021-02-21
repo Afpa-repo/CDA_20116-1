@@ -1,5 +1,5 @@
 <?php
-
+// Entité User(), contient les setters et les getters
 namespace App\Entity;
 
 use App\Repository\UserRepository;

@@ -1,5 +1,7 @@
 <?php
+// Controller qui check si le user qui tente de se connecter existe en BDD
 
+// Généré 'automatiquement' par make:auth, je ne me comprends pas tout à fait
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +16,8 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
+         if ($this->getUser())
+         {
              return $this->redirectToRoute('account');
          }
 

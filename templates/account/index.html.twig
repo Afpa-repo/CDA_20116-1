@@ -1,3 +1,5 @@
+{# Page personelle de l'utilisateur / Gérée par AccountController #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Mon Compte - Village Green{% endblock %}
@@ -5,7 +7,7 @@
 {% block content %}
     <h1>Mon compte</h1>
     <h2>Bienvenue {{ app.user.firstname }}</h2>
-    Modifier mon mot de passe <br>
+    <a href="{{ path('password') }}"> Modifier mon mot de passe</a> <br>
     Mes adresses <br>
     Mes commandes
 
