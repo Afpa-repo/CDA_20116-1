@@ -23,4 +23,4 @@ Pour installer les assets manquants:
 
 Pour lancer le server:
 Symfony server:start
-******---*****--***
+
