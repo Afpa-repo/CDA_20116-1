@@ -1,5 +1,5 @@
 <?php
-// Controller associé à la page d'accueil
+// Controller associé à la page d'accueil, associé à home/index.html.twig
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
