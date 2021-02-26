@@ -3,6 +3,7 @@
 // Associé à la vue order_cancel/index.html.twig
 namespace App\Controller;
 
+use App\Classe\AutoMail;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class OrderCancelController extends AbstractController
     /**
      * @Route("/commande/erreur/{stripeSessionId}", name="order_cancel")
      */
-    public function index($stripeSessionId): Response
+    public function index($stripeSessionId, AutoMail $mail): Response
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeSessionId($stripeSessionId);
 
@@ -30,7 +31,7 @@ class OrderCancelController extends AbstractController
         {
             return $this->redirectToRoute('home');
         }
-
+        $mail->sendOrderStatus( $this->getUser()->getEmail(), $this->getUser()->getFullName(), $order);
         return $this->render('order_cancel/index.html.twig', [
             'order' => $order
         ]);

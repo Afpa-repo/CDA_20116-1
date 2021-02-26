@@ -27,7 +27,26 @@ L'environnement local de chacun n'est pas push, donc quand vous faite un pull :
   -> Connexion à notre compte stripe, demander en message privée !!
   
   -> Carte test pour stripe 424242424242
-************************************************************
+*****************************************************************************
+
+MailHog est un outils permettant de simuler un serveur SMTP pour la gestion et le test
+d'envoi de mails
+
+Télécharger le exe depuis leur gitHub : https://github.com/mailhog/MailHog
+
+Lancer le point exe, il vous donne kles infos suivantes :
+  
+- SMTP 1025
+- HTTP 8025
+
+Il est maintenant possible d'aller sur l'interface de simulation de mailHog à 
+l'adresse suivante : 127.0.0.1:8025
+
+Pour configurer le serveur SMTP sur le projet, allez dans le .env,
+MAILER_DSN=smtp://localhost:1025
+
+
+************************************************************************************
 Les classes :
 
 - La classe Cart() gère notre panier, elle contient les fonctions suivantes
@@ -47,6 +66,19 @@ Les classes :
   -> getFull() // Fonction qui permet de récupérer les objets product, renvoit un tableau de tableaux associatifs ['product' => Objet product, 'quantity' => quantité]
   
 - La classe Search(), représente notre système de recherche et de filtre de produits dans le catalogue
+
+- La classe AutoMail, gère nos fonctionsd d'envoi de mails, elle contient les fonctions suivantes :
+
+  -> sendRegisterSuccess($emailUser, $fullNameUser) qui prend l'email et le nom de l'utilisateur en argument
+
+  -> sendOrderStatus($emailUser, $fullNameUser, $order), prend aussi un objet
+  Order() en argument, elle envoie 1 confirmation ou un abandon de commande selon si
+  $order->getIsPaid = 1 ou 0
+  
+Les rendus graphiques des mails sont dans templates/email/register_succes.html.twig 
+et templates/email/order_status.html.twig, ils sont largement améliorables
+
+
 *************************************************************************************
 
 Les controllers :

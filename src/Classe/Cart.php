@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class Cart
 {
     private $session;
+    private $entityManager;
 
     // On instancie une session pour stocker nos infos relatives aux panier et un entityManager pour communiquer avec la BDD
     public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)

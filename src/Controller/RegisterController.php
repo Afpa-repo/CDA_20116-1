@@ -2,12 +2,16 @@
 // Controller associé au formulaire d'inscription // Associé à la vue  register/index.html.twig
 namespace App\Controller;
 
+use App\Classe\AutoMail;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -21,7 +25,7 @@ class RegisterController extends AbstractController
     /**
      * @Route("/inscription", name="register")
      */
-    public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function index(Request $request, UserPasswordEncoderInterface $encoder,AutoMail $mail): Response
     {
         $user = new User(); // On instancie un nouvel objet $user à partir de la classe User()
         $form = $this->createForm(RegisterType::class, $user); // Méthode pour créer un formulaire à partir de Register>Type et pour le lier à $user
@@ -33,6 +37,9 @@ class RegisterController extends AbstractController
             $user->setPassword($password); // On stocke le mot de place hashé à la place de l'ancien dans $user
             $this->entityManager->persist($user); // On persist les données, on ne fait cette opération que lors de l'ajout d'une nouvelle donnée à la BDD
             $this->entityManager->flush();// On stock les données en BDD
+
+            $mail->sendRegisterSuccess($user->getEmail(), $user->getFullName());
+
             return $this->redirectToRoute('login'); // Redirection vers la page connexion
         }
 

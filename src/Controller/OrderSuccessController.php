@@ -3,6 +3,7 @@
 // Associé à la vue order_success/index.html.twig
 namespace App\Controller;
 
+use App\Classe\AutoMail;
 use App\Classe\Cart;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ class OrderSuccessController extends AbstractController
     /**
      * @Route("/commande/merci/{stripeSessionId}", name="order_success")
      */
-    public function index(Cart $cart, $stripeSessionId): Response
+    public function index(Cart $cart, $stripeSessionId, AutoMail $mail): Response
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeSessionId($stripeSessionId);
 
@@ -40,6 +41,9 @@ class OrderSuccessController extends AbstractController
             //isPaid modifié à 1 pour valider que Stripe a reçu le paiement
             $order->setIsPaid(1);
             $this->entityManager->flush();
+
+            // Envoie du mail de confirmation
+            $mail->sendOrderStatus( $this->getUser()->getEmail(), $this->getUser()->getFullName(), $order);
         }
 
 
