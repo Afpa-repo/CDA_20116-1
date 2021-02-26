@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Produits - Village Green{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-md-9">
+            <h1>Nos Produits</h1>
+            <div class="row">
+                {% for product in products %} {# Equivalent à un foreach en php #}
+                    <div class="col-md-4 product-container my-2">
+                        {# On utilise une option de la fonction path qui permet de faire transiter des données via l'url, ici le slug du produit #}
+                        <a href="{{ path('product',{ slug:product.slug}) }}"><img src="/assets/uploads/{{ product.illustration }}" alt="{{ product.name }}"></a>
+                        <h5>{{ product.name }}</h5>
+                        <span class="product-price">{{ (product.price/100)|number_format(2, '.', ',') }} €</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
