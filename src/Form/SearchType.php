@@ -1,5 +1,5 @@
 <?php
-
+// Formulaire associé à notre recherche par mots clefs et par filtre de catégories
 namespace App\Form;
 
 use App\Classe\Search;
@@ -45,11 +45,11 @@ class SearchType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Search::class,
             'method' => 'GET',
-            'crsf_protection' => false,
+            'crsf_protection' => false, // Désactive l'encodage des urls
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix() // Très important !!
     {
         return '';
     }

@@ -68,6 +68,7 @@ class Address
      */
     private $phone;
 
+    // Méthode magique qui est appellée chaque fois qu'on essaye d'utiliser Adress() comme si c'était une chaine de charactères
     public function __toString()
     {
         return $this->getName().'[br]'.$this->getAddress().'[br]'.$this->getCity().' - '.$this->getCountry();

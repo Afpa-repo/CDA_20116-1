@@ -1,5 +1,5 @@
 <?php
-
+// Controller qui gère notre connexion à l'API de paiement Stripe
 namespace App\Controller;
 
 use App\Classe\Cart;
@@ -22,9 +22,9 @@ class StripeController extends AbstractController
     {
 
         $product_for_stripe = [];
-        $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+        $YOUR_DOMAIN = 'http://127.0.0.1:8000'; // Nom de domaine, à changer en prod
 
-        //on récupère repositery de l'entité order, et on vient rechercher un enregistrement par la reference $reference
+        //on récupère repository de l'entité order, et on vient rechercher un enregistrement par la reference $reference
         $order = $entityManager->getRepository(Order::class)->findOneByReference($reference);
 
         // si il ne trouve pas order on ne crée pas la session stripe
@@ -33,7 +33,7 @@ class StripeController extends AbstractController
             new JsonResponse(['error' => 'order']);
         }
 
-        //Tous les produits du panier
+        //Pour tous les produits dans la table OrderDetails associée à Order
         foreach ($order->getOrderDetails()->getValues() as $product) {
 
             $product_object = $entityManager->getRepository(Product::class)->findOneByName($product->getProduct());

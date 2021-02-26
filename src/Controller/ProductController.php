@@ -1,5 +1,6 @@
 <?php
-
+// Controller associé à la gestion du catalogue affichage des produits / details d'un produit / Filtre et recherche
+// Associé aux vues product/index.html.twig et product/show.html.twig
 namespace App\Controller;
 
 use App\Classe\Search;
@@ -22,17 +23,24 @@ class ProductController extends AbstractController
      */
     public function index(Request $request)
     {
-    $products = $this->entityManager->getRepository(Product::class)->findAll();
+        $products = $this->entityManager->getRepository(Product::class)->findAll(); // On récupère tous les produits en BDD et on les stocks dans $products
 
-    $search = new Search();
-    $form = $this->createForm(\App\Form\SearchType::class, $search);
+        $search = new Search(); // Nouvelle instance de notre classe search
+        $form = $this->createForm(\App\Form\SearchType::class, $search);
 
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid())
-    {
-        $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
-    }
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            // Si l'utilisateur a fait une recherche par mots clés ou par catégories
+            // findWithSearch() est une méthode que nous avons implémentée dans productRepository
+            $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
+        }
+        else
+        {
+            $products = $this->entityManager->getRepository(Product::class)->findAll();
+            // On récupère tous les produits en BDD et on les stocks dans $products si il n'y a pas eu de filtre
+        }
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
@@ -45,7 +53,9 @@ class ProductController extends AbstractController
     public function show($slug)
     {
         $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+        // On récupère le produit en BDD via le slug passé en URL
 
+        // Cas ou le slug ne correspond à aucun produit
         if(!$product) {
             return $this->redirectToRoute('products');
         }

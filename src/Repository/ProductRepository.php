@@ -27,15 +27,16 @@ class ProductRepository extends ServiceEntityRepository
     public function findWithSearch(Search $search)
     {
         $query = $this
-            ->createQueryBuilder('p')
+            ->createQueryBuilder('p') // On cré une requête sur la table product allias p
             ->select('c', 'p')
-            ->join('p.category', 'c');
+            ->join('p.category', 'c'); // Jointure avec category allias c
 
+        // Si des catégories ont étées sélectionnées
         if (!empty($search->categories))
         {
             $query = $query
-                ->andWhere('c.id IN (:categories)')
-                ->setParameter('categories', $search->categories);
+                ->andWhere('c.id IN (:categories)') // Equivalant à une clause WHERE
+                ->setParameter('categories', $search->categories); // Equivalent à un bindValues
         }
         if(!empty($search->string)){
             $query = $query

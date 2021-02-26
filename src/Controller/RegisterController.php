@@ -1,5 +1,5 @@
 <?php
-// Controller associé au formulaire d'inscription
+// Controller associé au formulaire d'inscription // Associé à la vue  register/index.html.twig
 namespace App\Controller;
 
 use App\Entity\User;

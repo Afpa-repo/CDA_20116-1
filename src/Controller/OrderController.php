@@ -1,5 +1,6 @@
 <?php
-
+// Controller qui gère le choix de l'adresse de livraison, du transporteur et affiche un bref récap du panier
+// // Associé aux vue order/index.html.twig et order/add.html.twig
 namespace App\Controller;
 
 use App\Classe\Cart;
@@ -25,11 +26,13 @@ class OrderController extends AbstractController
      */
     public function index(Cart $cart, Request $request): Response
     {
+        // Si l'utilisateur n'a pas encore renseigné d'adresse dans son espace membre, il est redirigé vers la page d'ajout d'adresse
         if (!$this->getUser()->getAddresses()->getValues())
         {
             return $this->redirectToRoute('account_address_add');
         }
 
+        // On transmet au formulaire OrderType() l'utilisateur courant, on s'en servira pour restreindre le choix des adresses à celles de cet utilisateur
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()
         ]);
@@ -70,7 +73,7 @@ class OrderController extends AbstractController
 
             //Enregistrer la commande order()
             $order = new Order();
-            $reference = $date->format('dmY').'-'.uniqid();
+            $reference = $date->format('dmY').'-'.uniqid(); // On génère une référence de commande unique à partir de la date du jour et d'une chaine aléatoire
             $order->setReference($reference);
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);

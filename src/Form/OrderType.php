@@ -1,5 +1,5 @@
 <?php
-
+// Formulaire de sélection d'une adresse de livraison et d'un transporteur
 namespace App\Form;
 
 use App\Entity\Address;
@@ -14,7 +14,7 @@ class OrderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
+        $user = $options['user']; // On récupe ici les infos sur le user courant envoyées via l'option du createForm dans OrderController
 
         $builder
             ->add('addresses', EntityType::class, [

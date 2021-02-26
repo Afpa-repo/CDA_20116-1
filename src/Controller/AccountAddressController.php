@@ -1,5 +1,6 @@
 <?php
-
+// Controller associé à la gestion des adresses, affichage / ajout / modification / supression
+// Associé aux vue adresse.html.twig et adresse_form.html.twig
 namespace App\Controller;
 
 use App\Classe\Cart;
@@ -31,17 +32,21 @@ class AccountAddressController extends AbstractController
      */
     public function add(Cart $cart, Request $request)
     {
-        $address = new Address();
+        $address = new Address(); // Nouvelle instance de la classe Adress()
 
-        $form = $this->createForm(AddressType::class, $address);
+        $form = $this->createForm(AddressType::class, $address); // On génère le formulaire à partir d'AdresseType
 
-        $form->handleRequest($request);
+        $form->handleRequest($request); // On met le formulaire sur écoute
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isSubmitted() && $form->isValid()) //Si formulaire soumis et valide
         {
-            $address->setUser($this->getUser());
-            $this->entityManager->persist($address);
-            $this->entityManager->flush();
+            $address->setUser($this->getUser()); // On associe l'utilisateur en cours à l'objet adresse
+            $this->entityManager->persist($address); // On prépare l'insertion en BDD
+            $this->entityManager->flush(); // On enregistre les données en BDD
+
+            // Ce block de code nous permet de rediriger l'utilisateur sur la page commande si le panier n'est pas vide, sous entendu,
+            // que l'utilisateur s'est retrouvé ici au moment de passer commande et qu'il n'avait aucune adresse enregistrée ou qu'il a voulu
+            // en ajouter une
             if ($cart->get())
             {
                 return $this->redirectToRoute('order');
@@ -61,6 +66,9 @@ class AccountAddressController extends AbstractController
     {
         $address = $this->entityManager->getRepository(Address::class)->findOneById($id);
 
+        // Comme on retrouve l'adresse via l'id passée en URL, on se protège d'un usage malveillant, c'est à dire du cas
+        // ou on a fait transité une id innexistante via l'url
+        // Redirection si aucune adresse n'est trouvée ou si l'adresse trouvée n'est pas liée à l'utilisateur en cours
         if (!$address || $address->getUser() != $this->getUser())
         {
             return $this->redirectToRoute('account_address');

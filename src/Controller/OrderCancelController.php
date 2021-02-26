@@ -1,5 +1,6 @@
 <?php
-
+// Controller associé à la gestion du cas ou la commande n'a pas pue être validée car refus ou problème de paiement Stripe //
+// Associé à la vue order_cancel/index.html.twig
 namespace App\Controller;
 
 use App\Entity\Order;

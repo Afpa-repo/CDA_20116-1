@@ -1,5 +1,5 @@
 <?php
-
+// Controller associé à la gestion du panier, affichage / ajout d'un produit / retrait d'un produit / Supression d'un produit / Supression du panier
 namespace App\Controller;
 
 use App\Classe\Cart;

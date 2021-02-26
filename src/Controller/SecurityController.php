@@ -1,5 +1,5 @@
 <?php
-// Controller qui check si le user qui tente de se connecter existe en BDD
+// Controller qui check si le user qui tente de se connecter existe en BDD // Associé à la vue security/login.html.twig
 
 // Généré 'automatiquement' par make:auth, je ne me comprends pas tout à fait
 namespace App\Controller;

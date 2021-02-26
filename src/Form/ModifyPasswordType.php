@@ -1,5 +1,5 @@
 <?php
-// Formulaire de modification du mot de basse
+// Formulaire de modification du mot de passe
 namespace App\Form;
 
 use App\Entity\User;

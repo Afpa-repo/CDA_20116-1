@@ -1,5 +1,6 @@
 <?php
-
+// Controller associé à la gestion du cas ou la commande est validée par Stripe //
+// Associé à la vue order_success/index.html.twig
 namespace App\Controller;
 
 use App\Classe\Cart;
