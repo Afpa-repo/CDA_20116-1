@@ -12,7 +12,7 @@ Avant de push, faites toujours un pull !
 *****************************************************************************
 
 
-L'environnement local de chacun n'est pas push, donc quand vous faite un pull :
+L'environnement local de chacun n'est pas push, donc quand vous faites un pull :
 
  - La bdd se trouve dans public/bdd, importez la dans phpMyAdmin
  - composer require symfony/finder
@@ -63,16 +63,16 @@ Les classes :
    
   -> decrease($id) // Fonction qui permet de diminuer la quantité d'un produit de 1 via son identifiant
   
-  -> getFull() // Fonction qui permet de récupérer les objets product, renvoit un tableau de tableaux associatifs ['product' => Objet product, 'quantity' => quantité]
+  -> getFull() // Fonction qui permet de récupérer les objets product, renvoie un tableau de tableaux associatifs ['product' => Objet product, 'quantity' => quantité]
   
 - La classe Search(), représente notre système de recherche et de filtre de produits dans le catalogue
 
-- La classe AutoMail, gère nos fonctionsd d'envoi de mails, elle contient les fonctions suivantes :
+- La classe AutoMail, gère nos fonctions  d'envoi de mails, elle contient les fonctions suivantes :
 
   -> sendRegisterSuccess($emailUser, $fullNameUser) qui prend l'email et le nom de l'utilisateur en argument
 
   -> sendOrderStatus($emailUser, $fullNameUser, $order), prend aussi un objet
-  Order() en argument, elle envoie 1 confirmation ou un abandon de commande selon si
+  Order() en argument, elle envoie une confirmation ou un abandon de commande selon si
   $order->getIsPaid = 1 ou 0
   
 Les rendus graphiques des mails sont dans templates/email/register_succes.html.twig 
@@ -117,27 +117,27 @@ Les controllers :
   directement sur le site de l'API
 ***********************************************************************
 
-Les entitées :
+Les entités :
 
 - Adress() :
 
   -> Liée à User() par une relation ManyToOne, chaque adresse appartient à un seul utilisateur
   , en découle les méthodes getUser() qui permet d'obtenir l'objet User() à qui
-  l'adresse appartient et setUser(objet User) pour setter un User()
+  l'adresse appartient et setUser(objet User) pour setter un User().
   
-  -> On a def une méthode magique __toString() qui est invoqué 
+  -> On a def une méthode magique __toString() qui est invoquée 
   automatiquement quand on essaye d'utiliser un objet adresse
-  comme une chaine de charactères
+  comme une chaine de charactères.
   
 - Carrier() :
 
-  -> On a def une méthode magique __toString() qui est invoqué 
+  -> On a def une méthode magique __toString() qui est invoquée 
   automatiquement quand on essaye d'utiliser un objet carrier
   comme une chaine de charactères
 
 - Category() :
 
-  -> On a def une méthode magique __toString() qui est invoqué
+  -> On a def une méthode magique __toString() qui est invoquée
   automatiquement quand on essaye d'utiliser un objet category
   comme une chaine de charactères
 
@@ -146,64 +146,64 @@ Les entitées :
   , en découle la méthode getProducts() qui permet d'obtenir une collection
   d'objets produits qui appartiennent à la category, la méthode
   addProduct() pour ajouter un Product à la collection et la méthode 
-  removeProduct() pour en supprimer un
+  removeProduct() pour en supprimer un.
   
 - Order() : 
 
   -> On a choisi de stocker 'en dur' certaines informations que nous avons par ailleurs
   dans d'autres entités pour pouvoir garder traces de ces infos même si
-  les entités correspondantes n'existent plus
+  les entités correspondantes n'existent plus.
   
   -> Liée à User() par une relation ManyToOne, chaque commande
   appartient à un unique User()
   , en découle la méthode getUser() qui permet d'obtenir l'utilisateur qui a passé commande
-  et setUser(objet user) qui permet de setter l'utilisateur 
+  et setUser(objet user) qui permet de setter l'utilisateur .
   
   -> Liée à OrderDetails() par une relation ManyToOne,
-  chaque commande conteint plusieurs orderDetails (1 par produit en fait)
+  chaque commande contient plusieurs orderDetails (1 par produit en fait)
   , en découle la méthode getOrderDetails() qui renvoie une collection
   d'objets OrderDetails, la méthode addOrderDetail() pour ajouter
   une OderDetail() à la collection et la méthode
-  removeOrderDetail() pour en supprimer une
+  removeOrderDetail() pour en supprimer une.
   
-  -> On a def une méthode getTotal() qui calcul le total de la commande
-  en bouclant sur les totaux des OrderDetails qu'elle comprend
+  -> On a def une méthode getTotal() qui calcule le total de la commande
+  en bouclant sur les totaux des OrderDetails qu'elle comprend.
 
 - OrderDetails()
 
   -> Liée à Order() par une relation ManyToOne,
   chaque orderDetail appartient à une seule Order,
   en découle la méthode getMyOrder() qui renvoie la commande à laquelle
-  appartient un objet orderDetails
+  appartient un objet orderDetails.
 
-  -> On a def une méthode magique __toString() qui est invoqué
+  -> On a def une méthode magique __toString() qui est invoquée
   automatiquement quand on essaye d'utiliser un objet orderDetails
-  comme une chaine de charactères, renvoit 'nom-du_produit x quantité'
+  comme une chaine de charactères, renvoit 'nom-du_produit x quantité'.
 
 - Product()
 
   -> Liée à Category() par une relation ManyToOne,
   chaque product appartient à une seule category,
   en découle la méthode getCategory() qui renvoie la categorie 
-  à laquelle appartient un objet Product
+  à laquelle appartient un objet Product.
   
 - User()
 
-  -> L'attribut rôle est passé en ROLE_USER de base lors de la création
+  -> L'attribut rôle est passé en ROLE_USER de base lors de la création.
 
-  -> Definition d'une méthode getFullName() qui renvoie 'Prénom Nom'
+  -> Definition d'une méthode getFullName() qui renvoie 'Prénom Nom'.
 
   -> Liée à Adress() par une relation ManyToOne,
   chaque User conteint plusieurs Adress 
   , en découle la méthode getAdresses() qui renvoie une collection
   d'objets Adress et la méthode addAdress() pour ajouter une Adress()
-  à la collection
+  à la collection.
   
   -> Liée à Order() par une relation ManyToOne,
-  chaque User conteint plusieurs Order
+  chaque User contient plusieurs Order
   , en découle la méthode getOrders() qui renvoie une collection
   d'objets Order, la méthode addOrders() pour ajouter une Order()
-  à la collection et la méthode removeOrder() pour en supprimer une
+  à la collection et la méthode removeOrder() pour en supprimer une.
 
 *******************************************************************
 
@@ -226,9 +226,9 @@ Les modifs dans les Repository :
 
 - ProductRepository() // Création de la méthode findWithSearch() qui retourne
   un tableau d'objets Product() en fonction des mots clés 
-  saisis par l'utilisateur ou des catégories sélectionnées
+  saisis par l'utilisateur ou des catégories sélectionnées.
 
 - OrderRepository() //Création d'une méthode findSuccessOrders()
   qui permet de récupérer toutes les commandes d'un utilisateur 
-  qui ont étées payées
+  qui ont été payées.
 
