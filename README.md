@@ -34,7 +34,7 @@ d'envoi de mails
 
 Télécharger le exe depuis leur gitHub : https://github.com/mailhog/MailHog
 
-Lancer le point exe, il vous donne kles infos suivantes :
+Lancer le point exe, il vous donne les infos suivantes :
   
 - SMTP 1025
 - HTTP 8025
