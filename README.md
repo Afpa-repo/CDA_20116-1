@@ -208,6 +208,10 @@ Les entités :
   , en découle la méthode getOrders() qui renvoie une collection
   d'objets Order, la méthode addOrders() pour ajouter une Order()
   à la collection et la méthode removeOrder() pour en supprimer une.
+  
+- Header()
+  
+  -> Nous permet d'afficher des photos et des accroches commerciales dans le carousel
 
 *******************************************************************
 
