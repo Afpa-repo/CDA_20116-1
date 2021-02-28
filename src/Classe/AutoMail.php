@@ -33,36 +33,59 @@ class AutoMail
         $this->mailer->send($this->email);
     }
 
-    // Fonction qui envoie une confirmation ou un abandon de commande selon si la commande est payée
-    public function sendOrderStatus($recipientMail, $recipientFullName, Order $order)
+    // Fonction qui envoie une notification à l'utilisateur l'informant de l'état de sa commande
+    public function sendOrderStatus(Order $order)
     {
         $this->email = new TemplatedEmail();
         $this->email->from('contact@villagegreen.com') // Mettre ici le bon nom de domaine une fois en prode
-        ->to($recipientMail);// Email du destinataire
-        if($order->getIsPaid() == 0)
+        ->to($order->getUser()->getEmail());// Email du destinataire
+        if($order->getState() == 0)
         {
             $this->email->subject('Abandon de votre commande n°'.$order->getReference() .' sur villagegreen.com')
             ->htmlTemplate('email/order_status.html.twig')
             ->context([
-                'recipientMail' => $recipientMail,
-                'recipientFullName' => $recipientFullName,
+                'recipientMail' => $order->getUser()->getEmail(),
+                'recipientFullName' => $order->getUser()->getFullName(),
                 'orderReference' => $order->getReference(),
-                'orderStatus' => $order->getIsPaid()
+                'orderStatus' => $order->getState()
             ]);
         }
-        else
+        elseif($order->getState() == 1)
         {
             $this->email->subject('Confirmation de votre commande n°'.$order->getReference().'  sur villagegreen.com')
                 ->htmlTemplate('email/order_status.html.twig')
                 ->context([
-                    'recipientMail' => $recipientMail,
-                    'recipientFullName' => $recipientFullName,
+                    'recipientMail' => $order->getUser()->getEmail(),
+                    'recipientFullName' =>  $order->getUser()->getFullName(),
                     'orderReference' => $order->getReference(),
                     'orderPrice' => $order->getTotal(),
-                    'orderStatus' => $order->getIsPaid()
+                    'orderStatus' => $order->getState()
                 ]);
         }
-
-            $this->mailer->send($this->email);
+        elseif($order->getState() == 2)
+        {
+            $this->email->subject('Votre commande n°'.$order->getReference().'  est en cours de préparation !')
+                ->htmlTemplate('email/order_status.html.twig')
+                ->context([
+                    'recipientMail' => $order->getUser()->getEmail(),
+                    'recipientFullName' =>  $order->getUser()->getFullName(),
+                    'orderReference' => $order->getReference(),
+                    'orderPrice' => $order->getTotal(),
+                    'orderStatus' => $order->getState()
+                ]);
+        }
+        elseif($order->getState() == 3)
+        {
+            $this->email->subject('Votre commande n°'.$order->getReference().'  est en cours de livraison !')
+                ->htmlTemplate('email/order_status.html.twig')
+                ->context([
+                    'recipientMail' =>  $order->getUser()->getEmail(),
+                    'recipientFullName' =>  $order->getUser()->getFullName(),
+                    'orderReference' => $order->getReference(),
+                    'orderPrice' => $order->getTotal(),
+                    'orderStatus' => $order->getState()
+                ]);
+        }
+        $this->mailer->send($this->email);
     }
 }

@@ -55,13 +55,17 @@ class ProductController extends AbstractController
         $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
         // On récupère le produit en BDD via le slug passé en URL
 
+        $bestProducts = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
+
+
         // Cas ou le slug ne correspond à aucun produit
         if(!$product) {
             return $this->redirectToRoute('products');
         }
 
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'bestProducts' => $bestProducts
         ]);
     }
 }

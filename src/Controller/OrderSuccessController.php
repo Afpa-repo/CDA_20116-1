@@ -33,17 +33,17 @@ class OrderSuccessController extends AbstractController
         }
 
         //Si la commande a le statut non payé, on la passe en payé
-        if (!$order->getIsPaid())
+        if ($order->getState() == 0)
         {
             //vider le panier utilisateur
             $cart->remove();
 
             //isPaid modifié à 1 pour valider que Stripe a reçu le paiement
-            $order->setIsPaid(1);
+            $order->setState(1);
             $this->entityManager->flush();
 
             // Envoie du mail de confirmation
-            $mail->sendOrderStatus( $this->getUser()->getEmail(), $this->getUser()->getFullName(), $order);
+            $mail->sendOrderStatus($order);
         }
 
 
