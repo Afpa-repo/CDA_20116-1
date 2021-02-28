@@ -71,9 +71,10 @@ Les classes :
 
   -> sendRegisterSuccess($emailUser, $fullNameUser) qui prend l'email et le nom de l'utilisateur en argument
 
-  -> sendOrderStatus($emailUser, $fullNameUser, $order), prend aussi un objet
-  Order() en argument, elle envoie une confirmation ou un abandon de commande selon si
-  $order->getIsPaid = 1 ou 0
+  -> sendOrderStatus($order), prend un objet Order() en argument,
+  envoi un mail informant l'utilisateur de l'état de sa commande en fonction
+  de la valeur de Order->getState() : 0/Abandon, 1/Payée, 2/En Préparation, 3/En livraison
+  
   
 Les rendus graphiques des mails sont dans templates/email/register_succes.html.twig 
 et templates/email/order_status.html.twig, ils sont largement améliorables
@@ -168,6 +169,9 @@ Les entités :
   
   -> On a def une méthode getTotal() qui calcule le total de la commande
   en bouclant sur les totaux des OrderDetails qu'elle comprend.
+  
+  -> Definition de la méthode getStatus() qui renvoie une chaine de charactère 
+  selon l'état de la commande
 
 - OrderDetails()
 

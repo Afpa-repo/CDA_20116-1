@@ -31,7 +31,7 @@ class OrderCancelController extends AbstractController
         {
             return $this->redirectToRoute('home');
         }
-        $mail->sendOrderStatus( $this->getUser()->getEmail(), $this->getUser()->getFullName(), $order);
+        $mail->sendOrderStatus($order);
         return $this->render('order_cancel/index.html.twig', [
             'order' => $order
         ]);

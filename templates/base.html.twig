@@ -58,7 +58,7 @@
             {# Permet d'afficher 2 paires de liens différents selon si l'utilisateur est connecté ou non #}
             <div class="nav-item-custom">
                 {% if app.user %}
-                    <a href="{{ path('account') }}"> Mon compte </a> | <a href="{{ path('logout') }}"> Déconnexion </a>
+                    <a href="{{ path('account') }}"> Mon compte <small>{{ app.user.email }}</small> </a> | <a href="{{ path('logout') }}"> Déconnexion </a>
                 {% else %}
                     <a href="{{ path('login') }}"> Connexion </a> | <a href="{{ path('register') }}"> Inscription </a>
                 {% endif %}

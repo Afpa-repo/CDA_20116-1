@@ -24,7 +24,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande", name="order")
      */
-    public function index(Cart $cart, Request $request): Response
+    public function index(Cart $cart): Response
     {
         // Si l'utilisateur n'a pas encore renseigné d'adresse dans son espace membre, il est redirigé vers la page d'ajout d'adresse
         if (!$this->getUser()->getAddresses()->getValues())
@@ -80,7 +80,7 @@ class OrderController extends AbstractController
             $order->setCarrierName($carriers->getName());
             $order->setCarrierPrice($carriers->getPrice());
             $order->setDelivery($delivery_content);
-            $order->setIsPaid(0);
+            $order->setState(0);
 
             $this->entityManager->persist($order);
 
