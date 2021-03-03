@@ -23,8 +23,6 @@ class ProductController extends AbstractController
      */
     public function index(Request $request)
     {
-        $products = $this->entityManager->getRepository(Product::class)->findAll(); // On récupère tous les produits en BDD et on les stocks dans $products
-
         $search = new Search(); // Nouvelle instance de notre classe search
         $form = $this->createForm(\App\Form\SearchType::class, $search);
 
