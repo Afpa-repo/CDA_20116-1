@@ -116,6 +116,12 @@ Les controllers :
 - StripeController : Controller qui gère notre connexion à l'API de paiement Stripe
 // tout ce qui concerne Stripe a été fait en suivant la doc mise à dispo
   directement sur le site de l'API
+  
+- ResetPasswordController : Controller qui gère le cas mot de passe oublié, ces pages ne 
+  sont accessibles que depuis un mail envoyé à l'utilisateur, identifiant via le 
+  token généré dans l'entité ResetPassword() et passé en URL depuis le mail
+  // Associé aux vues reset_password/index.html.twig
+  et reset_password/update.html.twig
 ***********************************************************************
 
 Les entités :
@@ -213,6 +219,14 @@ Les entités :
   
   -> Nous permet d'afficher des photos et des accroches commerciales dans le carousel
 
+- ResetPassword()
+
+  -> Nous permet de créer des mots de passe provisoire pour un utilisateur qui a oublié son 
+  mot de passe
+  
+  -> Liée à User() en ManyToOne
+
+  -> Contient un token unique généré en php et la date de création
 *******************************************************************
 
 Les FormType :
@@ -227,6 +241,8 @@ Les FormType :
 
 - SearchType : // Formulaire associé à notre recherche 
   par mots clefs et par filtre de catégories
+  
+- ResetPasswordType : Formulaire de modification du mot de passe si oublié par l'utilisateur
 
 **********************************************************************
 
