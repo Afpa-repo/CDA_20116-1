@@ -1,4 +1,4 @@
-# CDA_20116-1
+﻿# CDA_20116-1
 ***********************************************************************
 
 Beaucoup de soins ont été apportés au commentaire du code et 
@@ -243,6 +243,8 @@ Les FormType :
   par mots clefs et par filtre de catégories
   
 - ResetPasswordType : Formulaire de modification du mot de passe si oublié par l'utilisateur
+
+-Ajout des Regex pour tout les champs necessaires : nom, prénom, adresse, téléphone, Email, password, ...
 
 **********************************************************************
 

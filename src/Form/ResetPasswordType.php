@@ -19,15 +19,25 @@ class ResetPasswordType extends AbstractType
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent êtres identiques',
-                'first_options' =>
-                    [
-                        'label' => 'Nouveau mot de passe'
-                    ],
-                'second_options' =>
-                    [
-                        'label' => 'Confirmer votre mot de passe'
-                    ]
-            ])
+            'first_options' =>
+            [
+                'label' => 'Nouveau mot de passe',
+                'constraints'=> [new Regex ([
+                    'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                     ]),
+                    new length (['min' =>5, 'max'=>30])],
+            ],
+        'second_options' =>
+            [
+                'label' => 'Confirmez votre Mot de passe',
+                'constraints'=> [new Regex ([
+                    'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                     ]),
+                    new length (['min' =>5, 'max'=>30])],
+            ]
+    ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
             ])

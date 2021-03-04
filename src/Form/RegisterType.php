@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegisterType extends AbstractType
 {
@@ -19,6 +21,11 @@ class RegisterType extends AbstractType
         $builder
             ->add('firstName',TextType::class,[
                 'label' => 'Prénom',
+                'constraints'=> [new Regex ([
+                    'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\-\s]+$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                ]),
+                new Length (['min' =>2, 'max'=>30])],
                 'attr' => [                     // Pour Mettre les options qu'on mettrait en attribut dans le formulaire HTML
                     'placeholder' => 'Camille',
                     'required' => true
@@ -26,6 +33,11 @@ class RegisterType extends AbstractType
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
+                'constraints'=> [new Regex ([
+                    'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\-\s]+$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                ]),
+                new length (['min' =>2, 'max'=>30])],
                 'attr' => [
                     'placeholder' => 'Dupont',
                     'required' => true
@@ -33,6 +45,10 @@ class RegisterType extends AbstractType
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
+                'constraints'=> new Regex ([
+                    'pattern' => '/^[0-9]{10}$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                ]),
                 'required' => false,
                 'attr' => [
                     'placeholder' => '(facultatif)',
@@ -46,6 +62,11 @@ class RegisterType extends AbstractType
                 'first_options' =>
                     [
                     'label' => 'Email',
+                    'constraints'=> [new Regex ([
+                        'pattern' => '/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,5}$/',
+                        'message' => 'Caratère(s) non valide(s)'
+                         ]),
+                        new length (['min' =>5, 'max'=>30])],
                     'attr' =>
                         [
                         'placeholder' => 'camille.dupont@me.net'
@@ -54,6 +75,11 @@ class RegisterType extends AbstractType
                 'second_options' =>
                     [
                         'label' => 'Confirmez votre Email',
+                        'constraints'=> [new Regex ([
+                            'pattern' => '/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,5}$/',
+                            'message' => 'Caratère(s) non valide(s)'
+                             ]),
+                            new length (['min' =>5, 'max'=>30])],
                         'attr' =>
                             [
                                 'placeholder' => 'camille.dupont@me.net'
@@ -68,6 +94,11 @@ class RegisterType extends AbstractType
                 'first_options' =>
                     [
                         'label' => 'Mot de passe',
+                        'constraints'=> [new Regex ([
+                            'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                            'message' => 'Caratère(s) non valide(s)'
+                             ]),
+                            new length (['min' =>5, 'max'=>30])],
                         'attr' =>
                             [
                                 'placeholder' => '*******'
@@ -76,6 +107,11 @@ class RegisterType extends AbstractType
                 'second_options' =>
                     [
                         'label' => 'Confirmez votre Mot de passe',
+                        'constraints'=> [new Regex ([
+                            'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                            'message' => 'Caratère(s) non valide(s)'
+                             ]),
+                            new length (['min' =>5, 'max'=>30])],
                         'attr' =>
                             [
                                 'placeholder' => '*******'

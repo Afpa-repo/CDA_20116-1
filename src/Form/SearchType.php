@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 use function Sodium\add;
 
 class SearchType extends AbstractType
@@ -19,6 +20,10 @@ class SearchType extends AbstractType
         $builder
             ->add('string', TextType::class, [
                 'label' => 'Rechercher',
+                'constraints'=> [new Regex ([
+                    'pattern' => '/^[a-zA-Z0-9.-_,\s]+$/',
+                    'message' => 'Caratère(s) non valide(s)'
+                     ])],
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Votre recherche',

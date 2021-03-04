@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 use function Sodium\add;
 
 class ModifyPasswordType extends AbstractType
@@ -39,19 +41,37 @@ class ModifyPasswordType extends AbstractType
                 'required' => true, // Champ obligatoire
                 'mapped' => false // Spécifie l'impossibilité de mettre ce champs en relation avec User()
             ])
-            ->add('new_password', RepeatedType::class, [ // RepeatedType pour avoir 2 champs liés, ils doivent correspondent
-                'required' => true,
-                'mapped' => false,
+            ->add('password', RepeatedType::class, [// RepeatedType pour avoir 2 champs liés, ils doivent correspondent
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent êtres identiques',
+                'label' => 'Mot de Passe',
+                'invalid_message' => 'Vos mots de passe doivent êtres identiques',
+                'required' => true,
                 'first_options' =>
-                [
-                    'label' => 'Nouveau mot de passe'
-                ],
+                    [
+                        'label' => 'Mot de passe',
+                        'constraints'=> [new Regex ([
+                            'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                            'message' => 'Caratère(s) non valide(s)'
+                             ]),
+                            new length (['min' =>5, 'max'=>30])],
+                        'attr' =>
+                            [
+                                'placeholder' => '*******'
+                            ]
+                    ],
                 'second_options' =>
-                [
-                    'label' => 'Confirmer votre mot de passe'
-                ]
+                    [
+                        'label' => 'Confirmez votre Mot de passe',
+                        'constraints'=> [new Regex ([
+                            'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                            'message' => 'Caratère(s) non valide(s)'
+                             ]),
+                            new length (['min' =>5, 'max'=>30])],
+                        'attr' =>
+                            [
+                                'placeholder' => '*******'
+                            ]
+                    ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
