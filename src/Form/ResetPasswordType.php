@@ -23,7 +23,7 @@ class ResetPasswordType extends AbstractType
             [
                 'label' => 'Nouveau mot de passe',
                 'constraints'=> [new Regex ([
-                    'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                    'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                      ]),
                     new length (['min' =>5, 'max'=>30])],
@@ -32,7 +32,7 @@ class ResetPasswordType extends AbstractType
             [
                 'label' => 'Confirmez votre Mot de passe',
                 'constraints'=> [new Regex ([
-                    'pattern' => '/^[a-zA-Z0-9.-_,]$/',
+                    'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                      ]),
                     new length (['min' =>5, 'max'=>30])],
