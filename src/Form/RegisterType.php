@@ -46,7 +46,7 @@ class RegisterType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
                 'constraints'=> new Regex ([
-                    'pattern' => '/^[0-9]{10}$/',
+                    'pattern' => '/^[0-9+.\s]$/',
                     'message' => 'Caratère(s) non valide(s)'
                 ]),
                 'required' => false,
@@ -95,7 +95,7 @@ class RegisterType extends AbstractType
                     [
                         'label' => 'Mot de passe',
                         'constraints'=> [new Regex ([
-                            'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
+                            'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                             'message' => 'Caratère(s) non valide(s)'
                              ]),
                             new length (['min' =>5, 'max'=>30])],
@@ -108,7 +108,7 @@ class RegisterType extends AbstractType
                     [
                         'label' => 'Confirmez votre Mot de passe',
                         'constraints'=> [new Regex ([
-                            'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
+                            'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                             'message' => 'Caratère(s) non valide(s)'
                              ]),
                             new length (['min' =>5, 'max'=>30])],

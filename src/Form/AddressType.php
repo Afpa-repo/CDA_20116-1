@@ -107,7 +107,7 @@ class AddressType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
                 'constraints' => new Regex([
-                    'pattern' => '/^[0-9]{10}$/',
+                    'pattern' => '/^[0-9+.\s]$/',
                     'message' => 'Caratère(s) non valide(s)'
                 ]),
                 'attr' => [

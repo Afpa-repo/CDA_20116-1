@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ResetPasswordType extends AbstractType
 {
@@ -23,19 +25,19 @@ class ResetPasswordType extends AbstractType
             [
                 'label' => 'Nouveau mot de passe',
                 'constraints'=> [new Regex ([
-                    'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
+                    'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                      ]),
-                    new length (['min' =>5, 'max'=>30])],
+                    new Length (['min' =>8,])],
             ],
         'second_options' =>
             [
                 'label' => 'Confirmez votre Mot de passe',
                 'constraints'=> [new Regex ([
-                    'pattern' => '/^[a-zA-Z0-9.-_,]+$/',
+                    'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                      ]),
-                    new length (['min' =>5, 'max'=>30])],
+                    new length (['min' =>8])],
             ]
     ])
             ->add('submit', SubmitType::class, [
