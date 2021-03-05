@@ -25,7 +25,7 @@ class RegisterType extends AbstractType
                     'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\-\s]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                 ]),
-                new Length (['min' =>2, 'max'=>30])],
+                new Length (['min' =>2])],
                 'attr' => [                     // Pour Mettre les options qu'on mettrait en attribut dans le formulaire HTML
                     'placeholder' => 'Camille',
                     'required' => true
@@ -37,7 +37,7 @@ class RegisterType extends AbstractType
                     'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\-\s]+$/',
                     'message' => 'Caratère(s) non valide(s)'
                 ]),
-                new length (['min' =>2, 'max'=>30])],
+                new length (['min' =>2])],
                 'attr' => [
                     'placeholder' => 'Dupont',
                     'required' => true
@@ -98,7 +98,7 @@ class RegisterType extends AbstractType
                             'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                             'message' => 'Caratère(s) non valide(s)'
                              ]),
-                            new length (['min' =>5, 'max'=>30])],
+                            new length (['min' =>8])],
                         'attr' =>
                             [
                                 'placeholder' => '*******'
@@ -111,7 +111,7 @@ class RegisterType extends AbstractType
                             'pattern' => '/^[a-zA-Z0-9.\-_,!%£$*,?]+$/',
                             'message' => 'Caratère(s) non valide(s)'
                              ]),
-                            new length (['min' =>5, 'max'=>30])],
+                            new length (['min' =>8])],
                         'attr' =>
                             [
                                 'placeholder' => '*******'
